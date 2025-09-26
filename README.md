@@ -65,6 +65,7 @@ Use the following dataset (CSV included as `customers-goods.csv`)
 ```python
 import pandas as pd
 from pysankey import sankey
+from pysankey.sankey import get_categories_by_cumulative_weight
 
 df = pd.read_csv('customers-goods.csv', 
                  sep=',',
@@ -95,11 +96,11 @@ fig_properties = dict(
     pct_vals=False # indicates whether to format labels as percentages
 )
 
-sankey.sankey(left=df['customer'], 
+sankey(left=df['customer'], 
       right=df['good'], 
       leftWeight=df['revenue'], 
-      leftLabels=sankey.get_categories_by_cumulative_weight(df, 'customer', 'revenue'),
-      rightLabels=sankey.get_categories_by_cumulative_weight(df, 'good', 'revenue'),
+      leftLabels=get_categories_by_cumulative_weight(df, 'customer', 'revenue'),
+      rightLabels=get_categories_by_cumulative_weight(df, 'good', 'revenue'),
       figure_name="customer-good",
       leftStackTitle='Customer Name',
       rightStackTitle='Good',
