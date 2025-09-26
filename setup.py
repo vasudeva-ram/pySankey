@@ -9,7 +9,7 @@ require= [x.strip() for x in require]
 
 setuptools.setup(
     name="pySankey",
-    version="0.1.0-replication",
+    version="0.1.0.replication",
     author="anazalea",
     author_email="anneyagolob@gmail.com",
     description="Fork of pySankey with formatting enhancements for academic replication",
@@ -19,9 +19,9 @@ setuptools.setup(
     url="https://github.com/vasudeva-ram/pySankey",
     packages=setuptools.find_packages(),
     install_requires=require,
-    classifiers=(
+    classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
-    ),
+    ],
 )

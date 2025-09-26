@@ -64,7 +64,7 @@ Use the following dataset (CSV included as `customers-goods.csv`)
 
 ```python
 import pandas as pd
-from pySankey import sankey
+from pysankey import sankey
 
 df = pd.read_csv('customers-goods.csv', 
                  sep=',',
