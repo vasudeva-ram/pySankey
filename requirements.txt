@@ -1,3 +1,5 @@
 matplotlib>=2.1.0rc1
 seaborn>=0.8.1
 numpy>=1.13.3
+openpyxl>=2.5.0
+pandas>=0.22.0
