@@ -9,19 +9,19 @@ require= [x.strip() for x in require]
 
 setuptools.setup(
     name="pySankey",
-    version="1.0.0",
+    version="0.1.0-replication",
     author="anazalea",
     author_email="anneyagolob@gmail.com",
-    description="Make simple, pretty Sankey Diagrams",
+    description="Fork of pySankey with formatting enhancements for academic replication",
     long_description=long_description,
     license='GNU General Public License v3.0',
     long_description_content_type="text/markdown",
-    url="https://github.com/anazalea/pySankey",
+    url="https://github.com/vasudeva-ram/pySankey",
     packages=setuptools.find_packages(),
     install_requires=require,
     classifiers=(
         "Programming Language :: Python :: 3",
-        'LICENSE :: OSI APPROVED :: GNU AFFERO GENERAL PUBLIC LICENSE V3',
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
     ),
 )

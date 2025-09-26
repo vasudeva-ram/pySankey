@@ -7,6 +7,36 @@ Sankey diagrams</a> flowing only from left to right.
 [![Build Status](https://travis-ci.org/anazalea/pySankey.svg?branch=master)](https://travis-ci.org/anazalea/pySankey)
 [![Coverage Status](https://coveralls.io/repos/github/anazalea/pySankey/badge.svg?branch=master)](https://coveralls.io/github/anazalea/pySankey?branch=master)
 
+## About this Fork
+
+This repository is a **modified fork of [anazalea/pySankey](https://github.com/anazalea/pySankey)**.  
+It is **not intended as a general-purpose package**, but rather as a tailored version created to support the replication of specific academic papers.  
+
+The main differences from the original package are:
+- Greater **formatting flexibility**  
+- More options for **headers**  
+- Expanded use of **colors**  
+
+If you find these modifications useful, you are welcome to use this fork.  
+For most users, however, the original [pySankey](https://github.com/anazalea/pySankey) package will be more appropriate and should be the first place to start.  
+
+All credit for the original implementation goes to the upstream authors.  
+This fork simply adapts the code to meet the replication requirements of some projects.
+
+## How to Install and Use
+
+To install this fork directly from GitHub (pinning to the replication-ready release):
+
+```bash
+pip install git+https://github.com/vasudeva-ram/pySankey@v0.1.0-replication#egg=pysankey
+```
+
+Once installed, you can import it in Python as usual:
+
+```python
+from pysankey import sankey
+```
+
 ## Requirements
 
 Requires python-tk (for python 2.7) or python3-tk (for python 3.x) you can
@@ -17,97 +47,7 @@ install the other requirements with:
 ```
 
 ## Example
-
-With fruits.txt :
-
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>true</th>
-      <th>predicted</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>blueberry</td>
-      <td>orange</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>lime</td>
-      <td>orange</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>blueberry</td>
-      <td>lime</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>apple</td>
-      <td>orange</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>996</th>
-      <td>lime</td>
-      <td>orange</td>
-    </tr>
-    <tr>
-      <th>997</th>
-      <td>blueberry</td>
-      <td>orange</td>
-    </tr>
-    <tr>
-      <th>998</th>
-      <td>orange</td>
-      <td>banana</td>
-    </tr>
-    <tr>
-      <th>999</th>
-      <td>apple</td>
-      <td>lime</td>
-    </tr>
-  </tbody>
-</table>
-<p>1000 rows × 2 columns</p>
-</div>
-
-You can generate a sankey's diagram with this code:
-
-```python
-import pandas as pd
-from pysankey import sankey
-
-pd.options.display.max_rows = 8
-df = pd.read_csv(
-    'pysankey/fruits.txt', sep=' ', names=['true', 'predicted']
-)
-colorDict = {
-    'apple':'#f71b1b',
-    'blueberry':'#1b7ef7',
-    'banana':'#f3f71b',
-    'lime':'#12e23f',
-    'orange':'#f78c1b'
-}
-sankey(
-    df['true'], df['predicted'], aspect=20, colorDict=colorDict,
-    fontsize=12, figureName="fruit"
-)
-# Result is in "fruit.png"
-```
-
-![Fruity Alchemy](pysankey/fruits.png)
-
-You could also use weight:
-
+Use the following dataset (CSV included as `customers-goods.csv`)
 ```
 ,customer,good,revenue
 0,John,fruit,5.5
@@ -124,30 +64,57 @@ You could also use weight:
 
 ```python
 import pandas as pd
-from pysankey import sankey
+from pySankey import sankey
 
-df = pd.read_csv(
-    'pysankey/customers-goods.csv', sep=',',
-    names=['id', 'customer', 'good', 'revenue']
+df = pd.read_csv('customers-goods.csv', 
+                 sep=',',
+                 names=['id', 'customer', 'good', 'revenue'],
+                 dtype={'revenue': 'float64'},
+                 header=0
+                )
+
+df.drop(columns=['id'], inplace=True)
+
+fig_properties = dict(
+      colorDict={
+           "John": "#FC8D62",
+           "Mike": "#66C2A5",
+           "Betty": "#8DA0CB",
+           "Ben": "#E78AC3",
+           "customer": "#A6D854",
+           "good": "#FFD92F",
+           "fruit": "#E5C494",
+           "meat": "#B3B3B5",
+           "drinks": "#A1D39B", 
+           "bread": "#FDBF9F"
+       },
+    fontsize=10,
+    rightColor=False, # indicates whether to use left colors for right side
+    aspect=20,
+    flowAlpha=0.4,
+    pct_vals=False # indicates whether to format labels as percentages
 )
-sankey(
-    left=df['customer'], right=df['good'], rightWeight=df['revenue'], aspect=20,
-    fontsize=20, figureName="customer-good"
-)
+
+sankey.sankey(left=df['customer'], 
+      right=df['good'], 
+      leftWeight=df['revenue'], 
+      leftLabels=sankey.get_categories_by_cumulative_weight(df, 'customer', 'revenue'),
+      rightLabels=sankey.get_categories_by_cumulative_weight(df, 'good', 'revenue'),
+      figure_name="customer-good",
+      leftStackTitle='Customer Name',
+      rightStackTitle='Good',
+      gcf_size={'w': 8.5, 'h':5},
+      **fig_properties)
 # Result is in "customer-good.png"
 ```
 
-![Customer goods](pysankey/customers-goods.png)
+![Customer goods](pysankey/customer-good.png)
 
 ## Package development
 
 ### Lint
 
 	pylint pysankey
-
-### Testing
-
-	python -m unittest
 
 ### Coverage
 

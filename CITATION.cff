@@ -1,0 +1,47 @@
+# CITATION.cff
+cff-version: 1.2.0
+message: "If you use this fork in your work, please cite it as below."
+title: "pySankey (Replication Fork): formatting, headers, and color options for academic replication"
+type: software
+abstract: >
+  This is a modified fork of anazalea/pySankey intended primarily to support
+  replication of specific academic papers. It adds formatting flexibility,
+  more header options, and expanded color controls. For general-purpose use,
+  please consider the original pySankey project.
+
+authors:
+  - name: "Vasudeva Ramaswamy"
+    orcid: "0009-0007-9954-3476"
+    email: "ramaswamy@american.edu"
+repository-code: "https://github.com/vasudeva-ram/pySankey"
+url: "https://github.com/vasudeva-ram/pySankey"
+license: "GPL-3.0-only"
+version: "0.1.0-replication"        
+date-released: "2025-09-26"
+keywords:
+  - sankey
+  - visualization
+  - replication
+  - matplotlib
+  - pandas
+
+preferred-citation:
+  type: software
+  title: "pySankey (Replication Fork)"
+  authors:
+    - name: "Vasudeva Ramaswamy"
+  year: 2025
+  version: "0.1.0-replication"
+  url: "https://github.com/vasudeva-ram/pySankey"
+  repository-code: "https://github.com/vasudeva-ram/pySankey"
+  notes: "Pinned at tag/commit: v0.1.0-replication"
+
+references:
+  - type: software
+    title: "pySankey"
+    authors:
+      - name: "anazalea (pySankey)"
+    repository-code: "https://github.com/anazalea/pySankey"
+    url: "https://github.com/anazalea/pySankey"
+    notes: "Original upstream project."
+    relation: "is-derived-from"
